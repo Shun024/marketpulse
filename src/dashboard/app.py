@@ -11,6 +11,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.graph_objects as go
 from dash import dcc, html, Input, Output
+import base64
 
 
 # Load results
@@ -32,6 +33,7 @@ app = dash.Dash(
     __name__,
     external_stylesheets=[dbc.themes.DARKLY],
     title="MarketPulse",
+    assets_folder="/Users/sherylshunlin/Documents/GitHub/marketpulse/src/dashboard/assets",
 )
 
 # Metric cards
@@ -142,6 +144,46 @@ app.layout = dbc.Container([
                     ]),
                 ])
             ], bordered=True, hover=True, striped=True),
+        ])
+    ]),
+
+    # SHAP Explainability Section
+    dbc.Row([
+        dbc.Col([
+            html.H5("Model Explainability — SHAP Analysis", className="mt-4 mb-3"),
+            html.P(
+                "Which macro factors drive credit spread predictions? "
+                "SHAP values show each feature's contribution to the forecast.",
+                className="text-muted mb-3",
+            ),
+        ])
+    ]),
+
+    dbc.Row([
+        dbc.Col([
+            dbc.Tabs([
+                dbc.Tab(
+                    html.Img(
+                        src="assets/shap_groups.png",
+                        style={"width": "100%", "marginTop": "20px"},
+                    ),
+                    label="Macro Factor Importance",
+                ),
+                dbc.Tab(
+                    html.Img(
+                        src="assets/shap_importance.png",
+                        style={"width": "100%", "marginTop": "20px"},
+                    ),
+                    label="Top 20 Features",
+                ),
+                dbc.Tab(
+                    html.Img(
+                        src="assets/shap_summary.png",
+                        style={"width": "100%", "marginTop": "20px"},
+                    ),
+                    label="SHAP Summary (Beeswarm)",
+                ),
+            ])
         ])
     ]),
 
