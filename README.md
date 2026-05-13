@@ -80,6 +80,24 @@ PYTHONPATH=. python src/dashboard/app.py
 
 ---
 
+## Model Explainability — SHAP Analysis
+
+Which macro factors drive credit spread predictions? SHAP values quantify each feature's contribution to the forecast.
+
+**Macro factor importance ranking:**
+1. **ig_spread** (own momentum) — yesterday's spread level is the strongest predictor
+2. **hy_spread** — high yield spreads signal credit stress building with a lag
+3. **spread_21d_ma** — medium-term trend context
+4. **yield_curve_slope** — rate environment with ~10 day transmission lag
+5. **us_vix** — volatility regime with 2-day lag (markets price fear before spreads widen)
+
+**Key finding:** The model learns real financial dynamics — spread momentum, cross-asset contagion (HY → IG), and macro transmission lags — rather than spurious correlations.
+
+![SHAP Macro Factors](data/processed/shap/shap_groups.png)
+![SHAP Top Features](data/processed/shap/shap_importance.png)
+
+---
+
 ## Author
 
 **Shun Le Yi Mon (Sheryl)** · Data Scientist · NLP & GenAI  
